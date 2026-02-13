@@ -1,0 +1,23 @@
+{
+  "name": "MindSensei",
+  "short_name": "MindSensei",
+  "description": "Privacy-first cognitive performance training platform",
+  "start_url": "/dashboard",
+  "display": "standalone",
+  "background_color": "#0a0e1a",
+  "theme_color": "#0a0e1a",
+  "orientation": "portrait-primary",
+  "categories": [
+    "health",
+    "education",
+    "productivity"
+  ],
+  "icons": [
+    {
+      "src": "/brain.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

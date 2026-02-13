@@ -1,0 +1,244 @@
+/* ==========================================================================
+   MindSenSei Design System
+   ========================================================================== */
+
+:root {
+  /* ---- Spacing (8px system) ---- */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 20px;
+  --sp-6: 24px;
+  --sp-8: 32px;
+  --sp-10: 40px;
+  --sp-12: 48px;
+  --sp-16: 64px;
+  --sp-20: 80px;
+  --sp-24: 96px;
+
+  /* ---- Typography Scale ---- */
+  --fs-xs: 0.75rem;
+  /* 12px */
+  --fs-sm: 0.875rem;
+  /* 14px */
+  --fs-base: 1rem;
+  /* 16px */
+  --fs-md: 1.125rem;
+  /* 18px */
+  --fs-lg: 1.25rem;
+  /* 20px */
+  --fs-xl: 1.5rem;
+  /* 24px */
+  --fs-2xl: 2rem;
+  /* 32px */
+  --fs-3xl: 2.5rem;
+  /* 40px */
+  --fs-4xl: 3rem;
+  /* 48px */
+
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+
+  --lh-tight: 1.2;
+  --lh-normal: 1.5;
+  --lh-relaxed: 1.7;
+
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+  /* ---- Color Palette (Premium Blackish-Blue) ---- */
+  --clr-bg-primary: #020617;
+  /* Slate 950 */
+  --clr-bg-secondary: #0f172a;
+  /* Slate 900 */
+  --clr-bg-tertiary: #1e293b;
+  /* Slate 800 */
+  --clr-bg-card: #1e293b;
+  /* Slate 800 (Card Base) */
+  --clr-bg-card-hover: #334155;
+  /* Slate 700 */
+  --clr-bg-elevated: #334155;
+
+  --clr-surface-100: rgba(255, 255, 255, 0.03);
+  --clr-surface-200: rgba(255, 255, 255, 0.07);
+  --clr-surface-300: rgba(255, 255, 255, 0.12);
+
+  --clr-text-primary: #e8ecf4;
+  --clr-text-secondary: #94a3b8;
+  --clr-text-tertiary: #64748b;
+  --clr-text-muted: #475569;
+
+  --clr-border: rgba(255, 255, 255, 0.08);
+  --clr-border-hover: rgba(255, 255, 255, 0.15);
+
+  /* Accent — subtle neon cyan-blue */
+  --clr-accent: #38bdf8;
+  --clr-accent-muted: rgba(56, 189, 248, 0.15);
+  --clr-accent-hover: #7dd3fc;
+  --clr-accent-glow: rgba(56, 189, 248, 0.08);
+
+  /* Semantic colors */
+  --clr-success: #34d399;
+  --clr-success-muted: rgba(52, 211, 153, 0.15);
+  --clr-warning: #fbbf24;
+  --clr-warning-muted: rgba(251, 191, 36, 0.15);
+  --clr-error: #f87171;
+  --clr-error-muted: rgba(248, 113, 113, 0.15);
+  --clr-info: #818cf8;
+  --clr-info-muted: rgba(129, 140, 248, 0.15);
+
+  /* Skill colors */
+  --clr-focus: #38bdf8;
+  --clr-memory: #a78bfa;
+  --clr-reaction: #fb923c;
+  --clr-logic: #34d399;
+
+  /* ---- Gradients ---- */
+  --grad-bg: radial-gradient(circle at top center, #0f172a 0%, #020617 100%);
+  --grad-card: linear-gradient(145deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
+  --grad-accent: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
+  --grad-glow: radial-gradient(circle, rgba(56, 189, 248, 0.15) 0%, transparent 70%);
+
+  /* ---- Borders ---- */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+
+  /* ---- Shadows ---- */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.25);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.3);
+
+  /* ---- Timing Functions ---- */
+  --ease-default: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-smooth: cubic-bezier(0.25, 0.1, 0.25, 1);
+
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --duration-slow: 400ms;
+
+  /* ---- Z-index Scale ---- */
+  --z-base: 0;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-overlay: 300;
+  --z-modal: 400;
+  --z-toast: 500;
+}
+
+/* ==========================================================================
+   Reset & Base
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: var(--clr-bg-primary);
+  /* Fix overscroll white space */
+  color: var(--clr-text-primary);
+  overflow-x: hidden;
+  min-height: 100vh;
+  text-rendering: optimizeLegibility;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: var(--fs-base);
+  font-weight: var(--fw-regular);
+  line-height: var(--lh-normal);
+  color: var(--clr-text-primary);
+  background: var(--grad-bg);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+a {
+  color: var(--clr-accent);
+  text-decoration: none;
+  transition: color var(--duration-fast) var(--ease-default);
+}
+
+a:hover {
+  color: var(--clr-accent-hover);
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+/* Focus ring */
+:focus-visible {
+  outline: 2px solid var(--clr-accent);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Selection */
+::selection {
+  background: var(--clr-accent-muted);
+  color: var(--clr-text-primary);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--clr-surface-300);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--clr-text-tertiary);
+}

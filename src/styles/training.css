@@ -1,0 +1,297 @@
+/* ==========================================================================
+   Training Pages — Shared Styles
+   Common CSS for all 4 training engines (focus, memory, reaction, logic)
+   ========================================================================== */
+
+.training-page {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.page-header {
+    margin-bottom: var(--sp-6);
+    display: flex;
+    align-items: center;
+    gap: var(--sp-4);
+}
+
+.page-title {
+    font-size: var(--fs-xl);
+    font-weight: var(--fw-bold);
+    display: flex;
+    align-items: center;
+    gap: var(--sp-2);
+}
+
+/* ---- Countdown ---- */
+.countdown-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--sp-16);
+    text-align: center;
+}
+
+.countdown-num {
+    font-size: 5rem;
+    font-weight: var(--fw-bold);
+    background: var(--grad-accent);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+    margin-bottom: var(--sp-4);
+    animation: pulse 0.8s ease-in-out infinite;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(1.1);
+        opacity: 0.7;
+    }
+}
+
+/* ---- Game HUD ---- */
+.game-area {
+    position: relative;
+}
+
+.game-hud {
+    display: flex;
+    justify-content: space-between;
+    padding: var(--sp-3) var(--sp-4);
+    background: var(--clr-bg-card);
+    border: 1px solid var(--clr-border);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--sp-4);
+    font-size: var(--fs-sm);
+    color: var(--clr-text-secondary);
+}
+
+/* ---- Result Score ---- */
+.result-score {
+    font-size: var(--fs-4xl);
+    font-weight: var(--fw-bold);
+    line-height: 1;
+    background: var(--grad-accent);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* ---- Score Breakdown ---- */
+.score-breakdown {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--sp-3);
+    max-width: 320px;
+    margin: 0 auto;
+}
+
+.breakdown-item {
+    display: flex;
+    justify-content: space-between;
+    padding: var(--sp-2) var(--sp-3);
+    background: var(--clr-surface-100);
+    border-radius: var(--radius-sm);
+    font-size: var(--fs-sm);
+}
+
+.breakdown-label {
+    color: var(--clr-text-tertiary);
+}
+
+.breakdown-val {
+    font-weight: var(--fw-semibold);
+    color: var(--clr-text-primary);
+}
+
+/* ==========================================================================
+   Focus Engine Styles
+   ========================================================================== */
+
+.game-canvas {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    background: var(--clr-bg-card);
+    border: 1px solid var(--clr-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+}
+
+.stimulus {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+    border: none;
+    transition: transform 0.1s var(--ease-spring);
+}
+
+.stimulus:hover {
+    transform: translate(-50%, -50%) scale(1.1);
+}
+
+.stimulus-target {
+    background: var(--clr-focus);
+    border-radius: 50%;
+}
+
+.stimulus-distractor {
+    background: var(--clr-error);
+    border-radius: 4px;
+}
+
+/* ==========================================================================
+   Memory Engine Styles
+   ========================================================================== */
+
+.sequence-display {
+    display: flex;
+    gap: var(--sp-3);
+    justify-content: center;
+    padding: var(--sp-12) var(--sp-4);
+}
+
+.seq-item {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--clr-surface-200);
+    border-radius: var(--radius-md);
+    font-size: var(--fs-xl);
+    font-weight: var(--fw-bold);
+    color: var(--clr-text-tertiary);
+    transition: all var(--duration-fast) var(--ease-spring);
+}
+
+.seq-active {
+    background: var(--clr-memory);
+    color: var(--clr-bg-primary);
+    transform: scale(1.15);
+}
+
+.recall-progress {
+    display: flex;
+    gap: var(--sp-3);
+    justify-content: center;
+    padding: var(--sp-6) var(--sp-4);
+}
+
+.recall-slot {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px dashed var(--clr-border);
+    border-radius: var(--radius-md);
+    font-size: var(--fs-lg);
+    font-weight: var(--fw-bold);
+    color: var(--clr-text-primary);
+}
+
+.recall-filled {
+    border-color: var(--clr-memory);
+    background: var(--clr-surface-100);
+}
+
+.number-pad {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--sp-3);
+    max-width: 240px;
+    margin: var(--sp-4) auto 0;
+}
+
+.num-btn {
+    height: 52px;
+    font-size: var(--fs-lg);
+    font-weight: var(--fw-semibold);
+}
+
+/* ==========================================================================
+   Reaction Engine Styles
+   ========================================================================== */
+
+.reaction-zone {
+    width: 100%;
+    height: 350px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--sp-6);
+    background: var(--clr-bg-card);
+    border: 2px solid var(--clr-border);
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    transition: border-color var(--duration-fast) var(--ease-default);
+}
+
+.reaction-circle {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    transition: background var(--duration-fast) var(--ease-default);
+}
+
+.reaction-msg {
+    font-size: var(--fs-lg);
+    font-weight: var(--fw-semibold);
+    color: var(--clr-text-secondary);
+}
+
+/* ==========================================================================
+   Logic Engine Styles
+   ========================================================================== */
+
+.sequence-row {
+    display: flex;
+    gap: var(--sp-3);
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: var(--sp-8);
+}
+
+.seq-num {
+    width: 52px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--clr-surface-200);
+    border-radius: var(--radius-md);
+    font-size: var(--fs-xl);
+    font-weight: var(--fw-bold);
+    color: var(--clr-text-primary);
+}
+
+.seq-mystery {
+    background: var(--clr-accent-muted);
+    color: var(--clr-accent);
+}
+
+.options-row {
+    display: flex;
+    gap: var(--sp-3);
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.option-btn {
+    min-width: 80px;
+    height: 48px;
+    font-size: var(--fs-lg);
+    font-weight: var(--fw-semibold);
+}

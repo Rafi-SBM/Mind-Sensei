@@ -1,0 +1,286 @@
+/* ==========================================================================
+   Dashboard Page Styles
+   ========================================================================== */
+
+.dashboard-page .page-header {
+    margin-bottom: var(--sp-8);
+}
+
+.dashboard-page .page-title {
+    font-size: var(--fs-2xl);
+    font-weight: var(--fw-bold);
+    letter-spacing: -0.02em;
+}
+
+.page-subtitle {
+    color: var(--clr-text-secondary);
+    font-size: var(--fs-sm);
+    margin-top: var(--sp-2);
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--sp-5);
+}
+
+/* ---- CGI Card ---- */
+.cgi-card {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: var(--sp-8);
+}
+
+.cgi-value {
+    font-size: var(--fs-4xl);
+    font-weight: var(--fw-bold);
+    background: var(--grad-accent);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+    margin: var(--sp-3) 0;
+}
+
+.cgi-label {
+    font-size: var(--fs-xs);
+    color: var(--clr-text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.cgi-breakdown {
+    display: flex;
+    justify-content: center;
+    gap: var(--sp-8);
+    margin-top: var(--sp-6);
+    flex-wrap: wrap;
+}
+
+.cgi-item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-1);
+    align-items: center;
+}
+
+.cgi-engine {
+    font-size: var(--fs-xs);
+    font-weight: var(--fw-medium);
+    display: flex;
+    align-items: center;
+    gap: var(--sp-1);
+}
+
+.cgi-score {
+    font-size: var(--fs-lg);
+    font-weight: var(--fw-semibold);
+    color: var(--clr-text-primary);
+}
+
+/* ---- Stat Card ---- */
+.stat-card {
+    display: flex;
+    justify-content: space-around;
+    padding: var(--sp-6);
+    grid-column: 1 / -1;
+}
+
+.today-card {
+    grid-column: 1 / -1;
+}
+
+/* ---- Skill Bars ---- */
+.skill-bars {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-4);
+    margin-top: var(--sp-3);
+}
+
+.skill-row {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-4);
+}
+
+.skill-name {
+    font-size: var(--fs-xs);
+    font-weight: var(--fw-medium);
+    width: 110px;
+    display: flex;
+    align-items: center;
+    gap: var(--sp-2);
+}
+
+.skill-value {
+    font-size: var(--fs-sm);
+    font-weight: var(--fw-semibold);
+    width: 32px;
+    text-align: right;
+}
+
+/* ---- Personal Bests ---- */
+.bests-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--sp-3);
+    margin-top: var(--sp-3);
+}
+
+.best-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--sp-1);
+    padding: var(--sp-3);
+    background: var(--clr-surface-100);
+    border-radius: var(--radius-md);
+}
+
+.best-score {
+    font-size: var(--fs-lg);
+    font-weight: var(--fw-bold);
+    color: var(--clr-text-primary);
+}
+
+.best-label {
+    font-size: 10px;
+    color: var(--clr-text-tertiary);
+}
+
+/* ---- Achievements ---- */
+.achievements-card {
+    grid-column: 1 / -1;
+}
+
+.achievements-grid {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    /* More unified single row */
+    gap: var(--sp-3);
+    margin-top: var(--sp-3);
+}
+
+@media (max-width: 768px) {
+    .achievements-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+.achievement-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--sp-1);
+    padding: var(--sp-3);
+    border-radius: var(--radius-md);
+    background: var(--clr-surface-100);
+}
+
+.achievement-item.locked {
+    opacity: 0.3;
+}
+
+.achievement-icon {
+    font-size: var(--fs-xl);
+    display: flex;
+}
+
+.achievement-name {
+    font-size: 10px;
+    color: var(--clr-text-tertiary);
+    text-align: center;
+}
+
+/* ---- Session History ---- */
+.history-card {
+    grid-column: 1 / -1;
+}
+
+.history-table {
+    margin-top: var(--sp-3);
+    font-size: var(--fs-sm);
+}
+
+.history-header {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: var(--sp-2);
+    padding: var(--sp-2) var(--sp-3);
+    color: var(--clr-text-tertiary);
+    font-size: var(--fs-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid var(--clr-border);
+}
+
+.history-row {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: var(--sp-2);
+    padding: var(--sp-3);
+    border-bottom: 1px solid var(--clr-surface-100);
+    align-items: center;
+    color: var(--clr-text-secondary);
+    font-size: var(--fs-sm);
+}
+
+.history-engine {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-2);
+    font-weight: var(--fw-medium);
+}
+
+.history-score {
+    font-weight: var(--fw-semibold);
+    color: var(--clr-text-primary);
+}
+
+.history-date {
+    color: var(--clr-text-tertiary);
+}
+
+/* ---- Insights ---- */
+.insights-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--sp-4);
+    margin-top: var(--sp-3);
+    text-align: center;
+}
+
+.page-loading {
+    padding: var(--sp-8);
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 768px) {
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .stat-card {
+        flex-wrap: wrap;
+        gap: var(--sp-4);
+        justify-content: space-between;
+    }
+
+    .achievements-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .bests-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .insights-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .history-header,
+    .history-row {
+        grid-template-columns: 1.2fr 0.8fr 0.8fr 1fr;
+    }
+}
