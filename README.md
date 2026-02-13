@@ -1,27 +1,19 @@
-# 🧠 Mind Sensei
+# Mind Sensei
 
 > **Sharpen Your Mind. Own Your Data.**
 > 
 > A privacy-first, offline-capable cognitive performance training platform built for peak mental agility.
 
-[![Next.js](https://img.shields.io/badge/Next.js-16.1.6-black?style=flat-square&logo=next.js)](https://nextjs.org/)
-[![React](https://img.shields.io/badge/React-19.2.3-61dafb?style=flat-square&logo=react)](https://react.dev/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5-3178c6?style=flat-square&logo=typescript)](https://www.typescriptlang.org/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](LICENSE)
-
----
-
-## 📋 Overview
+## Overview
 
 **Mind Sensei** is a cutting-edge brain training application designed to systematically improve **Focus**, **Memory**, **Reaction Speed**, and **Logical Reasoning**. Built on a **privacy-first, zero-tracking architecture**, all data is processed and stored locally on your device—no accounts, no servers, no surveillance.
 
-With a **premium glassmorphic UI**, **intelligent adaptive algorithms**, and **comprehensive analytics**, Mind Sensei delivers professional-grade cognitive training without monthly subscriptions or privacy trade-offs.
 
 ---
 
-## ✨ Key Features
+## Key Features
 
-### 🎯 Specialized Cognitive Training Engines
+### Specialized Cognitive Training Engines
 
 | Engine | Focus | Training Methods |
 |--------|-------|------------------|
@@ -30,14 +22,14 @@ With a **premium glassmorphic UI**, **intelligent adaptive algorithms**, and **c
 | **Reaction** | Response Speed & Accuracy | Go/No-Go paradigms, millisecond-precision tracking |
 | **Logic** | Fluid Reasoning | Pattern recognition, spatial puzzles, constraint solving |
 
-### 🔒 Privacy-First & Offline-Capable
+### Privacy-First & Offline-Capable
 
 - **Zero Data Collection**: No cloud servers, API calls, or external tracking
 - **100% Local Processing**: All computations happen on your device using IndexedDB
 - **PWA Support**: Installable as a standalone app on iOS, Android, macOS, Windows, and Linux
 - **Offline Mode**: Train anywhere without internet connectivity
 
-### 🎮 Intelligent Adaptive Training System
+### Intelligent Adaptive Training System
 
 - **Dynamic Difficulty Adjustment**: Real-time algorithm detects fatigue and performance trends
 - **Fatigue Detection**: Automatically reduces difficulty during sustained sessions to prevent mental burnout
@@ -45,7 +37,7 @@ With a **premium glassmorphic UI**, **intelligent adaptive algorithms**, and **c
 - **Cognitive Growth Index (CGI)**: Composite metric tracking overall mental fitness across all domains
 - **Performance Consistency Analysis**: Identifies your peak training windows and optimal session duration
 
-### 🎨 Premium User Experience
+### Premium User Experience
 
 - **Modern Glassmorphic Design**: Deep blue aesthetic with ambient blur effects
 - **60fps Smooth Animations**: Optimized GPU-accelerated transitions and micro-interactions
@@ -54,7 +46,7 @@ With a **premium glassmorphic UI**, **intelligent adaptive algorithms**, and **c
 
 ---
 
-## 🏗️ Architecture & Project Structure
+## Architecture & Project Structure
 
 ```
 mind-sensei/
@@ -127,7 +119,7 @@ mind-sensei/
 └── README.md                  # This file
 ```
 
-### 🔄 Data Flow Architecture
+### Data Flow Architecture
 
 ```
 User Interface (React Components)
@@ -145,7 +137,7 @@ Local Storage Layer (IndexedDB + LocalStorage)
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 Built with modern, production-ready web technologies:
 
@@ -160,39 +152,6 @@ Built with modern, production-ready web technologies:
 | **Linting** | ESLint 9 | Code quality & consistency |
 
 ---
-
-## 🚀 Getting Started
-
-### Prerequisites
-
-- **Node.js** 18+ (LTS recommended)
-- **npm** 9+ or **yarn** 1.22+
-
-### Installation
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/yourusername/mind-sensei.git
-   cd mind-sensei
-   ```
-
-2. **Install dependencies**
-   ```bash
-   npm install
-   # or with yarn
-   yarn install
-   ```
-
-3. **Start development server**
-   ```bash
-   npm run dev
-   # or with yarn
-   yarn dev
-   ```
-
-4. **Open in browser**
-   - Navigate to `http://localhost:3000`
-   - Start training immediately—no sign-up required!
 
 ### Build for Production
 
@@ -209,25 +168,7 @@ npm run lint
 
 ---
 
-## 📱 Deployment
-
-### As a Progressive Web App
-
-Mind Sensei is PWA-ready out of the box:
-1. Install from browser menu ("Install app")
-2. Works offline with cached assets
-3. Access directly from home screen
-
-### Hosting Options
-
-- **Vercel** (recommended for Next.js): `vercel deploy`
-- **Netlify**: Connect GitHub repo directly
-- **Docker**: Build with `next export` for static hosting
-- **Self-hosted**: Any Node.js hosting provider
-
----
-
-## 🧪 Project Standards
+## Project Standards
 
 ### Code Organization
 - **Domain Logic**: Pure, testable functions in `/src/domain`
@@ -249,7 +190,7 @@ Mind Sensei is PWA-ready out of the box:
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 Contributions are welcome and appreciated! Whether it's bug fixes, features, documentation, or test coverage, your help improves Mind Sensei.
 
@@ -257,7 +198,7 @@ Contributions are welcome and appreciated! Whether it's bug fixes, features, doc
 
 1. **Fork the repository**
    ```bash
-   git clone https://github.com/yourusername/mind-sensei.git
+   git clone https://github.com/Rafi-Luffy/mind-sensei.git
    cd mind-sensei
    ```
 
@@ -279,16 +220,11 @@ Contributions are welcome and appreciated! Whether it's bug fixes, features, doc
    ```
 
 6. **Open a Pull Request** with a clear description
+    - Link to any relevant issues
+    - Describe the problem and your solution
+    - Include screenshots or GIFs if applicable
 
-### Development Workflow
-- Small, focused commits
-- Clear commit messages using conventional commits
-- Test your changes locally before submitting
-- Update documentation if behavior changes
-
----
-
-## 📊 Analytics & Metrics
+## Analytics & Metrics
 
 Mind Sensei tracks the following metrics **locally only**:
 
@@ -302,18 +238,8 @@ All data stays on your device and can be exported anytime.
 
 ---
 
-## 🔐 Privacy & Security
 
-- ✅ **No user accounts**: No authentication, no email required
-- ✅ **No data collection**: Nothing sent to external servers
-- ✅ **No analytics**: No Google Analytics, Mixpanel, or tracking
-- ✅ **No advertisements**: Clean, distraction-free experience
-- ✅ **Local encryption**: IndexedDB is browser-protected
-- ✅ **Data ownership**: Export your progress anytime in JSON format
-
----
-
-## 📝 License
+## License
 
 This project is distributed under the **MIT License**. See [LICENSE](LICENSE) for details.
 
@@ -321,22 +247,3 @@ You are free to use, modify, and distribute this software for personal and comme
 
 ---
 
-## 🙋 Support & Feedback
-
-- **Issues**: Report bugs via [GitHub Issues](https://github.com/yourusername/mind-sensei/issues)
-- **Suggestions**: Share ideas and feature requests in [Discussions](https://github.com/yourusername/mind-sensei/discussions)
-- **Questions**: Check existing docs or ask in Discussions
-
----
-
-## 📚 Resources
-
-- [Next.js Documentation](https://nextjs.org/docs)
-- [React Documentation](https://react.dev)
-- [TypeScript Handbook](https://www.typescriptlang.org/docs/)
-- [Web Workers Guide](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API)
-- [IndexedDB API](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API)
-
----
-
-**Made with 💜 by the Mind Sensei team**
