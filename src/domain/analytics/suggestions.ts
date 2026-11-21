@@ -4,7 +4,6 @@
 
 import type { EngineType, SessionRecord } from '@/types/engines';
 import type { TrainingSuggestion, SkillImbalance, RollingAverage } from '@/types/analytics';
-import { mean } from '@/lib/math';
 
 const ENGINE_TYPES: EngineType[] = ['focus', 'memory', 'reaction', 'logic'];
 

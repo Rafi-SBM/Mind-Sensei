@@ -13,15 +13,15 @@ const ENGINE_ICONS: Record<string, React.FC<{ size?: number; color?: string }>> 
 };
 
 const STATS = [
-  { value: '4', label: 'Cognitive Engines', icon: 'brain' },
+  { value: '4', label: 'Training Modes', icon: 'brain' },
   { value: '100%', label: 'Offline & Private', icon: 'shield' },
   { value: 'Adaptive', label: 'Difficulty System', icon: 'trendUp' },
   { value: '∞', label: 'Free Forever', icon: 'zap' },
 ];
 
 const FAQ = [
-  { q: 'How does MindSenSei improve cognitive performance?', a: 'MindSenSei uses scientifically-grounded exercises targeting four core cognitive domains - sustained attention, working memory, reaction speed, and pattern reasoning. The adaptive difficulty engine ensures you are always training at the edge of your capability.' },
-  { q: 'Is my data private?', a: 'Absolutely. Everything runs locally on your device using IndexedDB and LocalStorage. There are no servers, no accounts, and no data ever leaves your browser.' },
+  { q: 'What can I practice with Mind Sensei?', a: 'Mind Sensei offers exercises targeting four core cognitive domains - sustained attention, working memory, reaction speed, and pattern reasoning. The adaptive difficulty engine adjusts the next session to your performance.' },
+  { q: 'Is my data private?', a: 'Absolutely. Everything runs locally on your device using IndexedDB and LocalStorage. There are no servers, no accounts, and your training data stays on your device.' },
   { q: 'How does adaptive difficulty work?', a: 'After each training session, the system evaluates your performance with fatigue-awareness and adjusts the difficulty for your next session. If you are performing well, challenges increase. If you are struggling or fatigued, it eases up to keep training productive.' },
   { q: 'Can I export my training data?', a: 'Yes. You can export all your data as a JSON file from the Settings page and import it on another device or keep it as a backup.' },
   { q: 'What engines are available?', a: 'Focus (sustained attention), Memory (sequence recall), Reaction (go/no-go response speed), and Logic (pattern completion reasoning). Each has unique mechanics and scoring.' },
@@ -39,7 +39,7 @@ export default function LandingContent() {
         <nav className="hero-nav container">
           <div className="hero-logo">
             <IconBrain size={28} color="var(--clr-accent)" />
-            <span>MindSenSei</span>
+            <span>Mind Sensei</span>
           </div>
           <Link href="/dashboard" className="btn btn-primary btn-sm">Open App</Link>
         </nav>
@@ -50,10 +50,10 @@ export default function LandingContent() {
             <span className="hero-accent">Sharpen Every Edge.</span>
           </h1>
           <p className="hero-subtitle">
-            Science-backed cognitive training across focus, memory, reaction speed, and logic. Adaptive. Private. Powerful.
+            A daily practice for focus, memory, reaction speed, and logic. Small challenges. Adaptive difficulty. Progress that belongs to you.
           </p>
           <div className="hero-actions">
-            <Link href="/dashboard" className="btn btn-primary btn-lg hero-cta">Start Training</Link>
+            <Link href="/train" className="btn btn-primary btn-lg hero-cta">Start Training</Link>
             <a href="#engines" className="btn btn-ghost btn-lg">Learn More</a>
           </div>
         </div>
@@ -75,15 +75,15 @@ export default function LandingContent() {
       {/* ---- Engines ---- */}
       <section id="engines" className="section">
         <div className="container">
-          <h2 className="section-title">Four Engines of Cognitive Growth</h2>
-          <p className="section-subtitle">Each engine targets a distinct cognitive domain with specialized exercises and scoring algorithms.</p>
+          <h2 className="section-title">Four Ways to Challenge Your Mind</h2>
+          <p className="section-subtitle">Build a daily rhythm with four different challenges, each with its own pace, rules, and score.</p>
           <div className="engines-grid">
             {ENGINES.map(key => {
               const info = ENGINE_INFO[key];
               const EngineIcon = ENGINE_ICONS[key];
               return (
                 <div key={key} className="engine-card">
-                  <div className="engine-icon-wrap" style={{ background: `${info.color}15` }}>
+                  <div className="engine-icon-wrap" style={{ background: `color-mix(in srgb, ${info.color} 10%, transparent)` }}>
                     <EngineIcon size={28} color={info.color} />
                   </div>
                   <h3 className="engine-name" style={{ color: info.color }}>{info.label}</h3>
@@ -105,7 +105,7 @@ export default function LandingContent() {
           <div className="steps-grid">
             {[
               { step: '01', title: 'Choose an Engine', desc: 'Select from Focus, Memory, Reaction, or Logic training.' },
-              { step: '02', title: 'Complete a Session', desc: 'Each session adapts to your current difficulty level in real time.' },
+              { step: '02', title: 'Complete a Session', desc: 'Start a quick or standard session at your current difficulty.' },
               { step: '03', title: 'Review Your Growth', desc: 'Track CGI score, streaks, XP, and detailed performance analytics.' },
               { step: '04', title: 'Level Up', desc: 'Earn achievements, climb ranks, and watch your cognitive edge sharpen.' },
             ].map(item => (
@@ -123,20 +123,20 @@ export default function LandingContent() {
       <section className="section">
         <div className="container science-section">
           <div className="science-content">
-            <h2 className="section-title" style={{ textAlign: 'left' }}>Built on Cognitive Science</h2>
+            <h2 className="section-title" style={{ textAlign: 'left' }}>A Practice You Can Measure</h2>
             <p className="science-text">
-              MindSenSei&apos;s training protocols are grounded in research on neuroplasticity, working memory capacity, and attentional control. Each engine uses validated paradigms - sustained attention tasks, n-back variants, go/no-go response inhibition, and pattern reasoning challenges.
+              Practice sustained attention, sequence recall, go/no-go response control, and number patterns. Each game measures your accuracy and timing so you can track how your performance changes with practice.
             </p>
             <p className="science-text">
-              The adaptive difficulty algorithm uses dampened learning rates with fatigue detection to keep you training in your zone of proximal development - challenging enough to grow, but not so hard you plateau from frustration.
+              After each session, your next challenge adjusts to your score. When repeated scores decline, adjustments become gentler. These game scores reflect your performance here; they are not a clinical assessment or a measure of intelligence.
             </p>
           </div>
           <div className="science-features">
             {[
               { icon: 'trendUp', text: 'Adaptive difficulty scaling' },
-              { icon: 'shield', text: 'Fatigue-aware dampening' },
+              { icon: 'shield', text: 'Performance-aware adjustments' },
               { icon: 'barChart', text: 'CGI composite scoring' },
-              { icon: 'award', text: 'Growth velocity tracking' },
+              { icon: 'award', text: 'Weekly performance trends' },
             ].map(f => (
               <div key={f.text} className="science-feat">
                 <Icon name={f.icon} size={18} color="var(--clr-accent)" />
@@ -171,7 +171,7 @@ export default function LandingContent() {
           <IconBrain size={40} color="var(--clr-accent)" />
           <h2 className="cta-title">Ready to Train Your Mind?</h2>
           <p className="cta-desc">No sign-up. No tracking. Just pure cognitive training.</p>
-          <Link href="/dashboard" className="btn btn-primary btn-lg">Launch MindSenSei</Link>
+          <Link href="/dashboard" className="btn btn-primary btn-lg">Launch Mind Sensei</Link>
         </div>
       </section>
 

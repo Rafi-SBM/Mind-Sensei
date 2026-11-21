@@ -23,6 +23,7 @@ export interface ReactionState {
     stimulusAppearedAt: number;
     isGoTrial: boolean;           // true = respond, false = inhibit
     waitingForResponse: boolean;
+    trialStartedAt: number;
 
     // History
     trials: ReactionTrial[];
@@ -58,6 +59,7 @@ export function createReactionState(difficulty: number, seed?: number): Reaction
         stimulusAppearedAt: 0,
         isGoTrial: true,
         waitingForResponse: false,
+        trialStartedAt: 0,
         trials: [],
     };
 }
@@ -77,6 +79,8 @@ export function generateReactionStimulus(state: ReactionState): Stimulus {
     const isGoTrial = state.random() >= noGoProbability;
 
     state.currentRound++;
+    state.stimulusAppearedAt = 0;
+    state.trialStartedAt = Date.now();
     state.isGoTrial = isGoTrial;
     state.waitingForResponse = true;
     state.currentStimulusId = uuid();
@@ -122,7 +126,7 @@ export function processReactionInput(state: ReactionState, input: ReactionInput)
     const trial: ReactionTrial = {
         round: state.currentRound,
         isGoTrial: state.isGoTrial,
-        delayMs: state.stimulusAppearedAt > 0 ? state.stimulusAppearedAt - (input.timestamp - (responseTime ?? 0)) : 0,
+        delayMs: state.stimulusAppearedAt > 0 ? state.stimulusAppearedAt - state.trialStartedAt : 0,
         responseTimeMs: isFalseStart ? null : responseTime,
         wasCorrect,
         isFalseStart,
@@ -139,12 +143,13 @@ export function processReactionInput(state: ReactionState, input: ReactionInput)
 
 /** Record a timeout (user didn't respond) */
 export function recordReactionTimeout(state: ReactionState): ReactionState {
+    if (!state.waitingForResponse) return state;
     const wasCorrect = !state.isGoTrial;  // Not responding to no-go is correct
 
     const trial: ReactionTrial = {
         round: state.currentRound,
         isGoTrial: state.isGoTrial,
-        delayMs: 0,
+        delayMs: Math.max(0, state.stimulusAppearedAt - state.trialStartedAt),
         responseTimeMs: null,
         wasCorrect,
         isFalseStart: false,
@@ -162,7 +167,6 @@ export function recordReactionTimeout(state: ReactionState): ReactionState {
 /** Evaluate session metrics */
 export function evaluateReactionSession(state: ReactionState): ReactionMetrics {
     const goTrials = state.trials.filter(t => t.isGoTrial);
-    const noGoTrials = state.trials.filter(t => !t.isGoTrial);
 
     // Average latency (only correct go trials)
     const validResponseTimes = goTrials
@@ -171,18 +175,16 @@ export function evaluateReactionSession(state: ReactionState): ReactionMetrics {
 
     const averageLatencyMs = validResponseTimes.length > 0
         ? mean(validResponseTimes)
-        : 0;
+        : 2000;
 
     // Standard deviation
     const standardDeviationMs = standardDeviation(validResponseTimes);
 
-    // False trigger rate: responded to no-go trials
-    const falseTriggersOnNoGo = noGoTrials.filter(t => !t.wasCorrect).length;
-    const falseStarts = state.trials.filter(t => t.isFalseStart).length;
-    const totalFalseTriggers = falseTriggersOnNoGo + falseStarts;
+    // Count each false start or incorrect no-go response exactly once.
+    const totalFalseTriggers = state.trials.filter(t => t.isFalseStart || (!t.isGoTrial && !t.wasCorrect)).length;
     const falseTriggerRate = state.trials.length > 0
         ? totalFalseTriggers / state.trials.length
-        : 0;
+        : 1;
 
     // Fatigue drift: compare first half response times to second half
     const halfIdx = Math.floor(validResponseTimes.length / 2);
@@ -193,6 +195,8 @@ export function evaluateReactionSession(state: ReactionState): ReactionMetrics {
         : 0;
 
     return {
+        trialAccuracy: state.trials.length ? state.trials.filter(t => t.wasCorrect).length / state.trials.length : 0,
+        responseAccuracy: goTrials.length ? validResponseTimes.length / goTrials.length : 0,
         averageLatencyMs,
         standardDeviationMs,
         falseTriggerRate,
@@ -216,8 +220,8 @@ export function calculateReactionScore(metrics: ReactionMetrics): number {
     // Lower fatigue drift = better
     const fatigueScore = clamp((1 - Math.abs(metrics.fatigueDrift)) * 100, 0, 100);
 
-    return clamp(
-        latencyScore * 0.35 + consistencyScore * 0.25 + accuracyScore * 0.25 + fatigueScore * 0.15,
-        0, 100
+    return clamp((metrics.responseAccuracy ?? 1) * (metrics.trialAccuracy ?? (1 - metrics.falseTriggerRate)) * (
+        latencyScore * 0.35 + consistencyScore * 0.25 + accuracyScore * 0.25 + fatigueScore * 0.15
+        ), 0, 100
     );
 }

@@ -137,7 +137,8 @@ export function generateFocusStimulus(state: FocusState): Stimulus {
 /** Process a user click response */
 export function processFocusInput(state: FocusState, input: FocusInput): FocusState {
     const stimulus = state.stimuli.find(s => s.id === input.stimulusId);
-    if (!stimulus) return state;
+    if (!stimulus || state.responses.some(r => r.stimulusId === input.stimulusId)) return state;
+    if (input.timestamp - stimulus.appearedAt > stimulus.duration) return state;
 
     const responseTime = input.timestamp - stimulus.appearedAt;
     const isCorrect = stimulus.isTarget;
@@ -183,20 +184,19 @@ export function recordMissedTarget(state: FocusState): FocusState {
 /** Evaluate session metrics */
 export function evaluateFocusSession(state: FocusState): FocusMetrics {
     // Finalize last streak
-    if (state.currentStreakStart > 0) {
-        state.attentionStreaks.push(Date.now() - state.currentStreakStart);
-    }
+    const streaks = [...state.attentionStreaks];
+    if (state.currentStreakStart > 0) streaks.push(Date.now() - state.currentStreakStart);
 
     // Sustained attention = average streak duration
-    const sustainedAttentionMs = state.attentionStreaks.length > 0
-        ? mean(state.attentionStreaks)
+    const sustainedAttentionMs = streaks.length > 0
+        ? mean(streaks)
         : Date.now() - state.startedAt;
 
     // Distraction error rate
-    const totalInteractions = state.correctHits + state.distractorClicks;
+    const totalInteractions = state.targetsShown + state.distractorsShown;
     const distractionErrorRate = totalInteractions > 0
-        ? state.distractorClicks / totalInteractions
-        : 0;
+        ? (state.distractorClicks + state.missedTargets) / totalInteractions
+        : 1;
 
     // Focus recovery latency: time between error and next correct response
     const recoveryTimes: number[] = [];
@@ -214,6 +214,7 @@ export function evaluateFocusSession(state: FocusState): FocusMetrics {
     const performanceVariance = standardDeviation(correctResponseTimes);
 
     return {
+        targetAccuracy: state.targetsShown ? state.correctHits / state.targetsShown : 0,
         sustainedAttentionMs,
         distractionErrorRate,
         focusRecoveryLatencyMs,
@@ -223,8 +224,8 @@ export function evaluateFocusSession(state: FocusState): FocusMetrics {
 
 /** Calculate normalized score (0-100) */
 export function calculateFocusScore(metrics: FocusMetrics): number {
-    // Higher sustained attention = better (normalized to 5min max)
-    const attentionScore = clamp(metrics.sustainedAttentionMs / 300000 * 100, 0, 100);
+    // Sustained attention is normalized to a short training session.
+    const attentionScore = clamp(metrics.sustainedAttentionMs / 30000 * 100, 0, 100);
     // Lower error rate = better
     const errorScore = (1 - metrics.distractionErrorRate) * 100;
     // Lower recovery = better (normalized to 5s max)
@@ -234,8 +235,8 @@ export function calculateFocusScore(metrics: FocusMetrics): number {
     // Lower variance = better (normalized to 1000ms max)
     const varianceScore = clamp((1 - metrics.performanceVariance / 1000) * 100, 0, 100);
 
-    return clamp(
-        attentionScore * 0.3 + errorScore * 0.35 + recoveryScore * 0.2 + varianceScore * 0.15,
-        0, 100
+    return clamp((metrics.targetAccuracy ?? 1) * (
+        (metrics.targetAccuracy ?? 1) * 60 + attentionScore * 0.05 + errorScore * 0.2 + recoveryScore * 0.05 + varianceScore * 0.1
+        ), 0, 100
     );
 }

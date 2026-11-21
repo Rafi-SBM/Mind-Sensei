@@ -23,6 +23,7 @@ export interface MemoryState {
     sequenceLength: number;
     isShowingSequence: boolean;
     sequenceShowTime: number;    // when sequence display started
+    recallStartedAt: number;
 
     // History
     roundResults: MemoryRoundResult[];
@@ -63,7 +64,8 @@ export function createMemoryState(difficulty: number, seed?: number): MemoryStat
         isShowingSequence: false,
         sequenceShowTime: 0,
         roundResults: [],
-        maxSpanReached: startSpan,
+        recallStartedAt: 0,
+        maxSpanReached: 0,
         spanHistory: [],
     };
 }
@@ -79,6 +81,7 @@ export function generateMemoryStimulus(state: MemoryState): Stimulus {
     state.currentSequence = sequence;
     state.userRecall = [];
     state.isShowingSequence = true;
+    state.recallStartedAt = 0;
     state.sequenceShowTime = Date.now();
     state.currentRound++;
 
@@ -100,6 +103,7 @@ export function generateMemoryStimulus(state: MemoryState): Stimulus {
 
 /** Process a recall input */
 export function processMemoryInput(state: MemoryState, input: MemoryInput): MemoryState {
+    if (state.isShowingSequence || state.userRecall.length >= state.currentSequence.length || input.selectedIndex < 1 || input.selectedIndex > 9) return state;
     state.userRecall.push(input.selectedIndex);
     return state;
 }
@@ -110,7 +114,7 @@ export function completeMemoryRound(state: MemoryState): {
     result: MemoryRoundResult;
 } {
     state.isShowingSequence = false;
-    const recallTimeMs = Date.now() - state.sequenceShowTime;
+    const recallTimeMs = Math.max(0, Date.now() - (state.recallStartedAt || Date.now()));
 
     // Calculate accuracy: correct items in correct positions
     let correctCount = 0;
@@ -123,7 +127,7 @@ export function completeMemoryRound(state: MemoryState): {
         ? correctCount / state.currentSequence.length
         : 0;
 
-    const isCorrect = recallAccuracy >= 0.8;  // 80% threshold for "correct"
+    const isCorrect = recallAccuracy === 1;
 
     const result: MemoryRoundResult = {
         round: state.currentRound,
@@ -138,8 +142,8 @@ export function completeMemoryRound(state: MemoryState): {
 
     // Adapt sequence length
     if (isCorrect) {
-        state.sequenceLength = clamp(state.sequenceLength + 1, 3, 12);
         state.maxSpanReached = Math.max(state.maxSpanReached, state.sequenceLength);
+        state.sequenceLength = clamp(state.sequenceLength + 1, 3, 12);
     } else {
         state.sequenceLength = clamp(state.sequenceLength - 1, 3, 12);
     }
@@ -200,8 +204,8 @@ export function calculateMemoryScore(metrics: MemoryMetrics): number {
     const decayScore = (1 - metrics.retentionDecay) * 100;
     const adaptScore = clamp((metrics.complexityAdaptationSlope + 0.1) / 0.2 * 100, 0, 100);
 
-    return clamp(
-        accuracyScore * 0.35 + spanScore * 0.3 + decayScore * 0.2 + adaptScore * 0.15,
-        0, 100
+    return clamp(metrics.recallAccuracy * (
+        accuracyScore * 0.35 + spanScore * 0.3 + decayScore * 0.2 + adaptScore * 0.15
+        ), 0, 100
     );
 }

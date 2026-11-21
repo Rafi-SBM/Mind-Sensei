@@ -14,6 +14,7 @@ export interface Stimulus {
 
 /** Per-engine metric maps */
 export interface FocusMetrics {
+  targetAccuracy?: number;
   sustainedAttentionMs: number;
   distractionErrorRate: number;
   focusRecoveryLatencyMs: number;
@@ -28,6 +29,8 @@ export interface MemoryMetrics {
 }
 
 export interface ReactionMetrics {
+  trialAccuracy?: number;
+  responseAccuracy?: number;
   averageLatencyMs: number;
   standardDeviationMs: number;
   falseTriggerRate: number;

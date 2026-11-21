@@ -171,7 +171,7 @@ export function generateLogicStimulus(state: LogicState): Stimulus {
 
     // All pattern types, unlocked progressively with complexity
     const allTypes: PatternType[] = ['arithmetic', 'geometric', 'fibonacci-like', 'alternating', 'mixed', 'square', 'prime', 'power'];
-    const availableTypes = allTypes.slice(0, clamp(complexityLevel + 2, 3, 8));
+    const availableTypes = allTypes.slice(0, clamp(complexityLevel + 3, 3, 8));
 
     // Avoid repeating the last used pattern type
     const lastType = state.usedPatternTypes[state.usedPatternTypes.length - 1];
@@ -179,8 +179,7 @@ export function generateLogicStimulus(state: LogicState): Stimulus {
     if (candidates.length === 0) candidates = availableTypes;
 
     // Use per-puzzle seed variation to guarantee unique puzzles each round
-    const puzzleSeed = state.seed + state.currentRound * 7919 + Date.now() % 1000;
-    const puzzleRandom = seededRandom(puzzleSeed);
+    const puzzleRandom = state.random;
 
     const type = candidates[Math.floor(puzzleRandom() * candidates.length)];
     state.usedPatternTypes.push(type);
@@ -313,8 +312,8 @@ export function calculateLogicScore(metrics: LogicMetrics): number {
     // Positive curve = improving
     const curveScore = clamp((metrics.patternImprovementCurve + 0.3) / 0.6 * 100, 0, 100);
 
-    return clamp(
-        timeScore * 0.25 + efficiencyScore * 0.35 + scalingScore * 0.2 + curveScore * 0.2,
-        0, 100
+    return clamp(metrics.efficiencyRatio * (
+        timeScore * 0.25 + efficiencyScore * 0.35 + scalingScore * 0.2 + curveScore * 0.2
+        ), 0, 100
     );
 }

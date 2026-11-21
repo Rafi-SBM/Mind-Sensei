@@ -19,19 +19,28 @@
 
 # production
 /build
+/dist
 
-# misc
+# misc & OS
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
 *.pem
 
-# debug
+# debug & logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
+*.log
 
 # env files (can opt-in for committing if needed)
 .env*
+!.env.example
 
 # vercel
 .vercel
@@ -39,3 +48,24 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Browser verification & Python artifacts
+/test-results/
+/.venv/
+/venv/
+/env/
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# IDE / Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Caches
+.turbo/
+.cache/
+

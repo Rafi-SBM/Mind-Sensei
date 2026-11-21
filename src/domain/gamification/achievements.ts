@@ -1,5 +1,5 @@
 import type { AchievementDefinition, AchievementCondition, UnlockedAchievement } from '@/types/gamification';
-import type { SessionRecord, EngineType } from '@/types/engines';
+import type { SessionRecord } from '@/types/engines';
 import type { StreakState, XPState } from '@/types/gamification';
 
 export const ACHIEVEMENTS: AchievementDefinition[] = [

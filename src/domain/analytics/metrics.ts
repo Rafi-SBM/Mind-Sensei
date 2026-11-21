@@ -33,8 +33,9 @@ export function aggregateDaily(sessions: SessionRecord[]): DailyAggregate[] {
     }
 
     const aggregates: DailyAggregate[] = [];
-    for (const [key, group] of grouped) {
-        const [date, engineType] = key.split('-') as [string, EngineType];
+    for (const group of grouped.values()) {
+        const date = toDateString(group[0].timestamp);
+        const engineType = group[0].engineType;
         aggregates.push({
             date,
             engineType,
@@ -120,9 +121,13 @@ export function estimateFatigue(sessions: SessionRecord[]): FatigueEstimation {
         return { probability: 0, sessionsToday: todaySessions.length, performanceDropPercent: 0 };
     }
 
-    const firstScore = todaySessions[0].score;
-    const lastScore = todaySessions[todaySessions.length - 1].score;
-    const drop = firstScore > 0 ? 1 - (lastScore / firstScore) : 0;
+    // Compare like with like: switching games is not evidence of fatigue.
+    const drops = ENGINE_TYPES.flatMap(engine => {
+        const records = todaySessions.filter(s => s.engineType === engine);
+        if (records.length < 2 || records[0].score <= 0) return [];
+        return [clamp(1 - records[records.length - 1].score / records[0].score, 0, 1)];
+    });
+    const drop = mean(drops);
 
     return {
         probability: clamp(drop, 0, 1),
@@ -156,7 +161,7 @@ export function computeConsistency(
     sessions: SessionRecord[],
     sampleSize: number = CONSISTENCY_SAMPLE_SIZE
 ): ConsistencyScore {
-    const recent = sessions
+    const recent = [...sessions]
         .sort((a, b) => b.timestamp - a.timestamp)
         .slice(0, sampleSize)
         .map(s => s.score);

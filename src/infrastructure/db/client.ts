@@ -52,7 +52,8 @@ export async function dbPut<T>(storeName: string, record: T): Promise<void> {
         const tx = db.transaction(storeName, 'readwrite');
         const store = tx.objectStore(storeName);
         const request = store.put(record);
-        request.onsuccess = () => resolve();
+        tx.oncomplete = () => resolve();
+        tx.onabort = () => reject(new Error(tx.error?.message ?? "Storage transaction aborted."));
         request.onerror = () => reject(new Error(`dbPut failed: ${request.error?.message}`));
     });
 }
@@ -78,7 +79,8 @@ export async function dbDelete(storeName: string, key: string): Promise<void> {
         const tx = db.transaction(storeName, 'readwrite');
         const store = tx.objectStore(storeName);
         const request = store.delete(key);
-        request.onsuccess = () => resolve();
+        tx.oncomplete = () => resolve();
+        tx.onabort = () => reject(new Error(tx.error?.message ?? "Storage transaction aborted."));
         request.onerror = () => reject(new Error(`dbDelete failed: ${request.error?.message}`));
     });
 }
@@ -90,7 +92,8 @@ export async function dbClear(storeName: string): Promise<void> {
         const tx = db.transaction(storeName, 'readwrite');
         const store = tx.objectStore(storeName);
         const request = store.clear();
-        request.onsuccess = () => resolve();
+        tx.oncomplete = () => resolve();
+        tx.onabort = () => reject(new Error(tx.error?.message ?? "Storage transaction aborted."));
         request.onerror = () => reject(new Error(`dbClear failed: ${request.error?.message}`));
     });
 }

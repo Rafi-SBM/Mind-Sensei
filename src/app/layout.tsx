@@ -7,7 +7,9 @@ import '@/styles/landing.css';
 import '@/styles/training.css';
 import '@/styles/dashboard.css';
 import '@/styles/settings.css';
+import '@/styles/completion.css';
 import AppShell from '@/components/layout/AppShell';
+import AppProvider from '@/components/layout/AppProvider';
 
 export const metadata: Metadata = {
   title: {
@@ -53,13 +55,8 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-      </head>
       <body>
-        <AppShell>{children}</AppShell>
+        <AppProvider><AppShell>{children}</AppShell></AppProvider>
       </body>
     </html>
   );

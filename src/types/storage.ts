@@ -8,16 +8,17 @@ import type { UnlockedAchievement, XPState, StreakState } from './gamification';
 
 /** IndexedDB Store Names */
 export const DB_NAME = 'mindsensei-db';
-export const DB_VERSION = 1;
+export const DB_VERSION = 2;
 
 export const STORE_SESSIONS = 'sessions' as const;
 export const STORE_DAILY_AGGREGATES = 'dailyAggregates' as const;
 export const STORE_ACHIEVEMENTS = 'achievements' as const;
+export const STORE_STATE = 'state' as const;
 
 /** Object store configs for schema creation */
 export interface StoreConfig {
     name: string;
-    keyPath: string;
+    keyPath: string | string[];
     indexes: Array<{
         name: string;
         keyPath: string | string[];
@@ -37,7 +38,7 @@ export const STORE_CONFIGS: StoreConfig[] = [
     },
     {
         name: STORE_DAILY_AGGREGATES,
-        keyPath: 'date',
+        keyPath: ['date', 'engineType'],
         indexes: [
             { name: 'by-engine', keyPath: 'engineType', unique: false },
         ],
@@ -47,6 +48,7 @@ export const STORE_CONFIGS: StoreConfig[] = [
         keyPath: 'id',
         indexes: [],
     },
+    { name: STORE_STATE, keyPath: 'id', indexes: [] },
 ];
 
 /** LocalStorage Keys */
@@ -62,6 +64,7 @@ export interface Preferences {
     theme: 'dark';
     soundEnabled: boolean;
     reducedMotion: boolean;
+    sessionRounds?: 8 | 16;
 }
 
 /** Difficulty per engine */

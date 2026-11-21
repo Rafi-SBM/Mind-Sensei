@@ -1,4 +1,4 @@
-import type { RankTier, RankInfo, XPState } from '@/types/gamification';
+import type { RankInfo } from '@/types/gamification';
 import { RANK_TIERS } from '@/lib/constants';
 
 export function getRank(level: number): RankInfo {

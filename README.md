@@ -1,249 +1,89 @@
 # Mind Sensei
 
-> **Sharpen Your Mind. Own Your Data.**
-> 
-> A privacy-first, offline-capable cognitive performance training platform built for peak mental agility.
+A private, local-first brain training app for focus, memory, reaction speed, and number patterns. No account, API key, external font, or database server is required.
 
-## Overview
+## Run locally
 
-**Mind Sensei** is a cutting-edge brain training application designed to systematically improve **Focus**, **Memory**, **Reaction Speed**, and **Logical Reasoning**. Built on a **privacy-first, zero-tracking architecture**, all data is processed and stored locally on your device—no accounts, no servers, no surveillance.
+Requires Node.js 20.9 or newer and npm.
 
-
----
-
-## Key Features
-
-### Specialized Cognitive Training Engines
-
-| Engine | Focus | Training Methods |
-|--------|-------|------------------|
-| **Focus** | Sustained Attention | Real-time target tracking with distraction resistance |
-| **Memory** | Working Memory Capacity | N-back sequences, recall challenges, pattern memorization |
-| **Reaction** | Response Speed & Accuracy | Go/No-Go paradigms, millisecond-precision tracking |
-| **Logic** | Fluid Reasoning | Pattern recognition, spatial puzzles, constraint solving |
-
-### Privacy-First & Offline-Capable
-
-- **Zero Data Collection**: No cloud servers, API calls, or external tracking
-- **100% Local Processing**: All computations happen on your device using IndexedDB
-- **PWA Support**: Installable as a standalone app on iOS, Android, macOS, Windows, and Linux
-- **Offline Mode**: Train anywhere without internet connectivity
-
-### Intelligent Adaptive Training System
-
-- **Dynamic Difficulty Adjustment**: Real-time algorithm detects fatigue and performance trends
-- **Fatigue Detection**: Automatically reduces difficulty during sustained sessions to prevent mental burnout
-- **Growth Velocity Tracking**: Measures your rate of improvement week-over-week
-- **Cognitive Growth Index (CGI)**: Composite metric tracking overall mental fitness across all domains
-- **Performance Consistency Analysis**: Identifies your peak training windows and optimal session duration
-
-### Premium User Experience
-
-- **Modern Glassmorphic Design**: Deep blue aesthetic with ambient blur effects
-- **60fps Smooth Animations**: Optimized GPU-accelerated transitions and micro-interactions
-- **Interactive Analytics**: Real-time heatmaps, performance graphs, and consistency visualizations
-- **Responsive Layout**: Seamless experience across mobile, tablet, and desktop devices
-
----
-
-## Architecture & Project Structure
-
-```
-mind-sensei/
-├── public/
-│   ├── manifest.json          # PWA manifest for app installation
-│   └── sw.js                  # Service Worker for offline capability
-│
-├── src/
-│   ├── app/                   # Next.js App Router (v16)
-│   │   ├── dashboard/         # Analytics & performance dashboard
-│   │   ├── settings/          # Preferences, data management, export
-│   │   ├── train/             # Training interface hub
-│   │   │   ├── focus/         # Focus engine training
-│   │   │   ├── logic/         # Logic puzzle training
-│   │   │   ├── memory/        # Memory challenge training
-│   │   │   └── reaction/      # Reaction time training
-│   │   ├── layout.tsx         # Root layout with metadata
-│   │   └── page.tsx           # Landing/home page
-│   │
-│   ├── components/            # Reusable React components
-│   │   ├── icons.tsx          # SVG icon system
-│   │   ├── landing/           # Landing page components
-│   │   └── layout/            # Shell, navigation, headers
-│   │
-│   ├── domain/                # Core business logic (engine-agnostic)
-│   │   ├── analytics/         # Metrics, CGI calculations, suggestions
-│   │   ├── difficulty/        # Adaptive difficulty algorithms
-│   │   ├── engines/           # Pure cognitive engine logic
-│   │   │   ├── focus.ts       # Focus game state & scoring
-│   │   │   ├── logic.ts       # Logic puzzle generation
-│   │   │   ├── memory.ts      # N-back sequences
-│   │   │   └── reaction.ts    # Go/No-Go stimulus management
-│   │   └── gamification/      # XP system, streaks, ranks, achievements
-│   │
-│   ├── hooks/                 # Custom React hooks
-│   │   └── useStorage.ts      # LocalStorage & IndexedDB integration
-│   │
-│   ├── infrastructure/        # Data layer & worker integration
-│   │   ├── db/                # Database schema & client
-│   │   ├── export/            # Data export/import utilities
-│   │   ├── storage/           # Local storage abstractions
-│   │   └── workers/           # Web Workers for heavy computation
-│   │
-│   ├── lib/                   # Utility functions
-│   │   ├── constants.ts       # App-wide configuration
-│   │   ├── math.ts            # Statistical & mathematical helpers
-│   │   └── time.ts            # Time manipulation utilities
-│   │
-│   ├── styles/                # Global & modular styles
-│   │   ├── animations.css     # Reusable animation keyframes
-│   │   ├── appshell.css       # Layout styling
-│   │   ├── components.css     # Component-specific styles
-│   │   ├── dashboard.css      # Dashboard styling
-│   │   ├── globals.css        # Global variables & resets
-│   │   ├── landing.css        # Landing page styling
-│   │   ├── settings.css       # Settings page styling
-│   │   └── training.css       # Training interface styling
-│   │
-│   └── types/                 # TypeScript definitions
-│       ├── analytics.ts       # Analytics & metrics types
-│       ├── engines.ts         # Cognitive engine interfaces
-│       ├── gamification.ts    # Gamification system types
-│       └── storage.ts         # Storage & data persistence types
-│
-├── assets/                    # Documentation & media assets
-├── .eslintrc.mjs              # ESLint configuration
-├── next.config.ts             # Next.js build & runtime config
-├── package.json               # Dependencies & scripts
-├── tsconfig.json              # TypeScript compiler options
-└── README.md                  # This file
+```sh
+npm ci
+npm run dev
 ```
 
-### Data Flow Architecture
+Open [localhost:3000](http://localhost:3000).
 
-```
-User Interface (React Components)
-            ↓
-      Custom Hooks (useStorage)
-            ↓
-Domain Logic (Cognitive Engines)
-            ↓
-Analytics Engine (CGI, Fatigue, Suggestions)
-            ↓
-Local Storage Layer (IndexedDB + LocalStorage)
-            ↓
-[Device Memory - No External Servers]
-```
+For the production build, including offline support:
 
----
-
-## Tech Stack
-
-Built with modern, production-ready web technologies:
-
-| Layer | Technology | Purpose |
-|-------|-----------|---------|
-| **Framework** | [Next.js 16](https://nextjs.org/) | React meta-framework with App Router |
-| **Runtime** | [React 19](https://react.dev/) | UI library with hooks & composition |
-| **Language** | [TypeScript 5](https://www.typescriptlang.org/) | Type-safe JavaScript development |
-| **Styling** | CSS Modules + CSS Variables | Scoped, maintainable styles |
-| **Storage** | IndexedDB + LocalStorage | Client-side data persistence |
-| **Workers** | Web Workers | Offload computation to background threads |
-| **Linting** | ESLint 9 | Code quality & consistency |
-
----
-
-### Build for Production
-
-```bash
+```sh
 npm run build
 npm start
 ```
 
-### Code Quality
+The service worker is enabled in production. Keep the first visit connected until Settings shows **Ready for offline practice**. It prepares every app route and its JavaScript and styles for subsequent offline visits. Installation requires a browser that supports web apps and HTTPS (localhost is supported for development). Install from the browser menu, or use Share → Add to Home Screen on iOS.
 
-```bash
+## What is implemented
+
+- **Focus:** select circles and ignore square distractors. Missed targets, duplicate clicks, and distractions affect the score.
+- **Memory:** watch a number sequence and recall it in order. Exact recall increases the next sequence length; the reported span counts successfully recalled sequences.
+- **Reaction:** respond to GO signals and hold back on STOP signals. Early responses, missed GO signals, and incorrect STOP responses are recorded separately.
+- **Logic:** complete numeric sequences, with eight progressively unlocked pattern types and four unique answers per puzzle.
+- **Sessions:** quick (8 rounds) and standard (16 rounds), countdown, keyboard controls, pause/resume, automatic pause on tab changes, a five-minute active-time limit, and a results screen with per-game metrics.
+- **Progress:** session history, XP, levels, ranks, local-calendar streaks, 14 achievements, personal bests, a weighted seven-day growth index, daily trend charts, and a 30-day activity map.
+- **Adaptive difficulty:** each skill adjusts after a completed session. Same-skill performance declines dampen the adjustment.
+- **Preferences:** functional sound cues, reduced motion, and a saved default session length. System reduced-motion preferences are also respected.
+- **Data management:** JSON export, validated import with a replacement preview, difficulty reset, and confirmed deletion of training data.
+- **Offline:** precached app routes and assets, installable manifest, an offline indicator, and persistent-storage requests.
+- **Accessibility:** labeled controls, visible keyboard focus, semantic session tables, a skip link, a mobile navigation focus trap, and non-color signal labels.
+
+Game scores describe performance in these exercises. They are not a clinical assessment or a measure of intelligence.
+
+## Data and privacy
+
+Training data is saved in IndexedDB on the current browser and origin. All session, XP, streak, achievement, difficulty, and summary updates commit in one transaction. A failed save can be retried from the results screen without duplicating the session. Web Locks serialize writes across tabs where supported, and BroadcastChannel refreshes open tabs.
+
+Database version 2 migrates the original local-storage profile and fixes daily summary keys so multiple skills can retain results on the same day. Daily summaries and XP level counters are regenerated when importing a backup. The full backup is validated before any replacement begins; replacement uses a single transaction.
+
+Back up before clearing browser data, changing browser profiles, moving devices, or switching the app's hostname or port. Browser storage is not a substitute for a backup. **Clear training data** preserves preferences; **Import backup** replaces both history and preferences. There is no cloud sync.
+
+## Verification
+
+```sh
 npm run lint
+npm run typecheck
+npm test
+npm run build
 ```
 
----
+The domain tests cover inactivity scoring, duplicate input, exact memory recall, reaction false starts, seeded logic generation, date-aware daily aggregation, non-mutating analytics, difficulty bounds, XP progression, achievement deduplication, and backup rejection.
 
-## Project Standards
+For the browser checks, start the production server in one terminal with `npm start`. In another:
 
-### Code Organization
-- **Domain Logic**: Pure, testable functions in `/src/domain`
-- **UI Components**: Reusable React components in `/src/components`
-- **Hooks**: Custom React hooks for state/storage in `/src/hooks`
-- **Types**: Single source of truth for TypeScript definitions in `/src/types`
+```sh
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r tests/requirements.txt
+playwright install chromium
+python tests/e2e.py
+```
 
-### TypeScript
-- Strict mode enabled (`strict: true`)
-- No implicit `any` types
-- All exported functions typed
-- Interfaces for domain models
+The browser suite uses an isolated browser profile. It completes all four games, checks saving and reloads, exports and restores a backup, rejects invalid imports, verifies preferences and tab synchronization, checks all routes at mobile and desktop widths, and completes a session without a network connection. Screenshots and the test backup are written to the ignored `test-results/` folder. Set `MINDSENSEI_URL` to test a different server.
 
-### Performance
-- Tree-shakeable imports
-- Code splitting at route boundaries
-- Web Workers for heavy computations
-- Optimized CSS with variables
+## Structure
 
----
+```text
+src/app/                   Next.js routes and page metadata
+src/components/training/   Shared session interface and lifecycle
+src/components/layout/     App initialization and responsive navigation
+src/domain/                Game engines, analytics, difficulty, rewards
+src/hooks/                 Reactive storage access and pausable timers
+src/infrastructure/state/  Transactional app state and tab synchronization
+src/infrastructure/db/     IndexedDB schema and typed operations
+src/infrastructure/export/ Backup validation and import/export
+src/styles/                Design tokens, pages, responsive styling
+public/sw.js               Production offline cache
+public/manifest.json       Installable app metadata
+tests/                     Domain regression tests and browser suite
+```
 
-## Contributing
-
-Contributions are welcome and appreciated! Whether it's bug fixes, features, documentation, or test coverage, your help improves Mind Sensei.
-
-### How to Contribute
-
-1. **Fork the repository**
-   ```bash
-   git clone https://github.com/Rafi-Luffy/mind-sensei.git
-   cd mind-sensei
-   ```
-
-2. **Create a feature branch**
-   ```bash
-   git checkout -b feature/your-feature-name
-   ```
-
-3. **Make your changes** following the project standards above
-
-4. **Commit with clear messages**
-   ```bash
-   git commit -m "feat: add new cognitive engine" -m "Description of changes"
-   ```
-
-5. **Push to your branch**
-   ```bash
-   git push origin feature/your-feature-name
-   ```
-
-6. **Open a Pull Request** with a clear description
-    - Link to any relevant issues
-    - Describe the problem and your solution
-    - Include screenshots or GIFs if applicable
-
-## Analytics & Metrics
-
-Mind Sensei tracks the following metrics **locally only**:
-
-- **Performance Scores**: Accuracy, speed, consistency
-- **Growth Tracking**: Weekly improvement rates
-- **Cognitive Growth Index**: Overall mental fitness composite
-- **Session Data**: Duration, difficulty, fatigue levels
-- **Consistency Heatmap**: Training frequency visualization
-
-All data stays on your device and can be exported anytime.
-
----
-
-
-## License
-
-This project is distributed under the **MIT License**. See [LICENSE](LICENSE) for details.
-
-You are free to use, modify, and distribute this software for personal and commercial purposes.
-
----
-
+Built with Next.js, React, TypeScript, and CSS. Deploy with any Node.js host supporting Next.js, using `npm run build` and `npm start`. No secrets or external services are required.

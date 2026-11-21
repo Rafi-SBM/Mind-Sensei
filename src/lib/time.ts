@@ -42,8 +42,8 @@ export function isSameDay(a: string, b: string): boolean {
 
 /** Check if date is yesterday relative to another date */
 export function isYesterday(dateStr: string, relativeTo: string): boolean {
-    const date = new Date(dateStr);
-    const ref = new Date(relativeTo);
+    const date = new Date(`${dateStr}T00:00:00Z`);
+    const ref = new Date(`${relativeTo}T00:00:00Z`);
     const diffMs = ref.getTime() - date.getTime();
     const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
     return diffDays === 1;
@@ -58,7 +58,7 @@ export function daysAgo(days: number): string {
 
 /** Format date for display */
 export function formatDate(dateStr: string): string {
-    const d = new Date(dateStr);
+    const d = new Date(`${dateStr}T12:00:00`);
     return d.toLocaleDateString('en-US', {
         month: 'short',
         day: 'numeric',
@@ -67,7 +67,7 @@ export function formatDate(dateStr: string): string {
 
 /** Format date with year */
 export function formatFullDate(dateStr: string): string {
-    const d = new Date(dateStr);
+    const d = new Date(`${dateStr}T12:00:00`);
     return d.toLocaleDateString('en-US', {
         year: 'numeric',
         month: 'long',

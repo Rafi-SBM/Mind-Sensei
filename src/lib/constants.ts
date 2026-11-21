@@ -6,7 +6,7 @@ import type { EngineType } from '@/types/engines';
 import type { RankInfo, RankTier } from '@/types/gamification';
 
 /** App metadata */
-export const APP_NAME = 'MindSenSei';
+export const APP_NAME = 'Mind Sensei';
 export const APP_DESCRIPTION = 'A privacy-first cognitive performance platform to sharpen focus, memory, reaction speed, and logical thinking.';
 export const APP_URL = 'https://mindsensei.app';
 
